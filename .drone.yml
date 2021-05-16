@@ -1,0 +1,12 @@
+name: default
+
+kind: pipeline
+type: docker
+
+steps:
+- name: rom building
+  image: apon77/aosp:ccache
+  commands:
+    - sudo apt install neofetch
+    - neofetch
+    - df -h
