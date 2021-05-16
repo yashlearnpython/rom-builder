@@ -7,8 +7,5 @@ steps:
 - name: rom building
   image: apon77/aosp:ccache
   commands:
-    - sudo apt install neofetch
-    - expect \"yes/no\"
-    - send \"yes\r\"
-    - neofetch
     - df -h
+    - neofetch
