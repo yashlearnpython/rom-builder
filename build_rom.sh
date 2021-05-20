@@ -1,22 +1,13 @@
 #!/bin/bash
 
-set -e
-set -x
+free
+df -h
 
-# sync rom
-repo init --depth=1 -u git://github.com/AospExtended/manifest.git -b 11.x
-git clone https://github.com/Apon77Lab/android_.repo_local_manifests.git --depth 1 -b aex .repo/local_manifests
-repo sync
+export USE_CCACHE=1
+export CCACHE_COMPRESS=1
+export CCACHE_MAXSIZE=50G # 50 GB
 
-# build rom
-source build/envsetup.sh
-lunch aosp_mido-user
-m aex -j$(nproc --all)
+git clone https://github.com/phhusson/treble_experimentations
 
-# upload rom
-up(){
-	curl --upload-file $1 https://transfer.sh/$(basename $1); echo
-	# 14 days, 10 GB limit
-}
-
-up out/target/product/mido/*.zip
+mkdir AOSP11; cd AOSP11
+bash ../treble_experimentations/build.sh android-11.0
